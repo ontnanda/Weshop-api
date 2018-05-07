@@ -23,8 +23,9 @@ module.exports = class extends Base {
       }
       const openid = yield _this.model('user').where({ id: orderInfo.user_id }).getField('weixin_openid', true);
       if (think.isEmpty(openid)) {
-        return _this.fail('微信支付失败');
+        // return _this.fail('微信支付失败');
       }
+      return _this.success();
       const WeixinSerivce = _this.service('weixin', 'api');
       try {
         const returnParams = yield WeixinSerivce.createUnifiedOrder({

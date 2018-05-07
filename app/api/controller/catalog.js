@@ -27,7 +27,15 @@ module.exports = class extends Base {
 
       // 获取子分类数据
       if (currentCategory && currentCategory.id) {
-        currentCategory.subCategoryList = yield model.where({ 'parent_id': currentCategory.id }).select();
+        //currentCategory.subCategoryList = yield _this.model('store').where({ category_id: ['IN', childCategoryIds] }).limit(7).select();
+        currentCategory.subCategoryList = yield _this.model('store_category').field(['s.*','s.*,sc.cate_id']).alias('sc').join({
+          table: 'store',
+          join: 'inner',
+          as: 's',
+          on: ['s.id', 'sc.store_id']
+        }).where({'sc.cate_id': currentCategory.id}).select();
+  
+        // currentCategory.subCategoryList = yield model.where({ 'parent_id': currentCategory.id }).select();
       }
 
       return _this.success({
@@ -50,8 +58,36 @@ module.exports = class extends Base {
       }
       // 获取子分类数据
       if (currentCategory && currentCategory.id) {
-        currentCategory.subCategoryList = yield model.where({ 'parent_id': currentCategory.id }).select();
+        // currentCategory.subCategoryList = yield model.where({ 'parent_id': currentCategory.id }).select();
+        currentCategory.subCategoryList = yield _this2.model('store_category').field(['s.*','s.*,sc.cate_id']).alias('sc').join({
+          table: 'store',
+          join: 'inner',
+          as: 's',
+          on: ['s.id', 'sc.store_id']
+        }).where({'sc.cate_id': currentCategory.id}).select();
       }
+
+      return _this2.success({
+        currentCategory: currentCategory
+      });
+    })();
+  }
+
+  menuAction() {
+    var _this2 = this;
+
+    return _asyncToGenerator(function* () {
+      const categoryId = _this2.get('id');
+      const model = _this2.model('category');
+
+      let currentCategory = null;
+      if (categoryId) {
+        currentCategory = yield model.where({ 'id': categoryId }).find();
+      }
+      // 获取子分类数据
+      // if (currentCategory && currentCategory.id) {
+      //   currentCategory.subCategoryList = yield model.where({ 'parent_id': currentCategory.id }).select();
+      // }
 
       return _this2.success({
         currentCategory: currentCategory

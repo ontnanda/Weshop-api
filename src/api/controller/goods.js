@@ -31,8 +31,9 @@ module.exports = class extends Base {
     const model = this.model('goods');
 
     const info = await model.where({'id': goodsId}).find();
+    const store = await this.model('store').where({id: info.store_id}).find();
     const gallery = await this.model('goods_gallery').where({goods_id: goodsId}).limit(4).select();
-    const attribute = await this.model('goods_attribute').field('weshopth_goods_attribute.value, weshopth_attribute.name').join('weshopth_attribute ON weshopth_goods_attribute.attribute_id=weshopth_attribute.id').order({'weshopth_goods_attribute.id': 'asc'}).where({'weshopth_goods_attribute.goods_id': goodsId}).select();
+    const attribute = await this.model('goods_attribute').field('nideshop_goods_attribute.value, nideshop_attribute.name').join('nideshop_attribute ON nideshop_goods_attribute.attribute_id=nideshop_attribute.id').order({'nideshop_goods_attribute.id': 'asc'}).where({'nideshop_goods_attribute.goods_id': goodsId}).select();
     const issue = await this.model('goods_issue').select();
     const brand = await this.model('brand').where({id: info.brand_id}).find();
     const commentCount = await this.model('comment').where({value_id: goodsId, type_id: 0}).count();
@@ -63,6 +64,7 @@ module.exports = class extends Base {
     // return this.json(jsonData);
     return this.success({
       info: info,
+      store: store,
       gallery: gallery,
       attribute: attribute,
       userHasCollect: userHasCollect,

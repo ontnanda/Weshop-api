@@ -58,15 +58,17 @@ module.exports = class extends Base {
    * @returns {Promise.<*>}
    */
   addAction() {
+    
     var _this3 = this;
 
     return _asyncToGenerator(function* () {
       const goodsId = _this3.post('goodsId');
       const productId = _this3.post('productId');
       const number = _this3.post('number');
-
+      
       // 判断商品是否可以购买
       const goodsInfo = yield _this3.model('goods').where({ id: goodsId }).find();
+      
       if (think.isEmpty(goodsInfo) || goodsInfo.is_delete === 1) {
         return _this3.fail(400, '商品已下架');
       }
@@ -100,7 +102,7 @@ module.exports = class extends Base {
           list_pic_url: goodsInfo.list_pic_url,
           number: number,
           session_id: 1,
-          user_id: think.userId,
+          user_id: 0,
           retail_price: productInfo.retail_price,
           market_price: productInfo.retail_price,
           goods_specifition_name_value: goodsSepcifitionValue.join(';'),
@@ -159,9 +161,9 @@ module.exports = class extends Base {
         // 添加规格名和值
         let goodsSepcifition = [];
         if (!think.isEmpty(productInfo.goods_specification_ids)) {
-          goodsSepcifition = yield _this4.model('goods_specification').field(['weshopth_goods_specification.*', 'weshopth_specification.name']).join('weshopth_specification ON weshopth_specification.id=weshopth_goods_specification.specification_id').where({
-            'weshopth_goods_specification.goods_id': goodsId,
-            'weshopth_goods_specification.id': { 'in': productInfo.goods_specification_ids.split('_') }
+          goodsSepcifition = yield _this4.model('goods_specification').field(['nideshop_goods_specification.*', 'nideshop_specification.name']).join('nideshop_specification ON nideshop_specification.id=nideshop_goods_specification.specification_id').where({
+            'nideshop_goods_specification.goods_id': goodsId,
+            'nideshop_goods_specification.id': { 'in': productInfo.goods_specification_ids.split('_') }
           }).select();
         }
 

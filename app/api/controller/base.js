@@ -16,7 +16,7 @@ module.exports = class extends think.Controller {
       const controllerAction = _this.ctx.controller + '/' + _this.ctx.action;
       if (!publicController.includes(_this.ctx.controller) && !publicAction.includes(controllerAction)) {
         if (think.userId <= 0) {
-          return _this.fail(401, '请先登录');
+          // return _this.fail(401, '请先登录');
         }
       }
     })();

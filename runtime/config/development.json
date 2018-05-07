@@ -40,8 +40,8 @@
       "mysql": {
         "logConnect": true,
         "logSql": true,
-        "database": "weshopth",
-        "prefix": "weshopth_",
+        "database": "nideshop",
+        "prefix": "nideshop_",
         "encoding": "utf8mb4",
         "host": "127.0.0.1",
         "port": "3306",
@@ -130,8 +130,8 @@
       "mysql": {
         "logConnect": true,
         "logSql": true,
-        "database": "weshopth",
-        "prefix": "weshopth_",
+        "database": "nideshop",
+        "prefix": "nideshop_",
         "encoding": "utf8mb4",
         "host": "127.0.0.1",
         "port": "3306",
@@ -199,8 +199,8 @@
       "mysql": {
         "logConnect": true,
         "logSql": true,
-        "database": "weshopth",
-        "prefix": "weshopth_",
+        "database": "nideshop",
+        "prefix": "nideshop_",
         "encoding": "utf8mb4",
         "host": "127.0.0.1",
         "port": "3306",

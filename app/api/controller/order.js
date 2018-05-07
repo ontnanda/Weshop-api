@@ -91,16 +91,16 @@ module.exports = class extends Base {
     return _asyncToGenerator(function* () {
       // 获取收货地址信息和计算运费
       const addressId = _this3.post('addressId');
-      const checkedAddress = yield _this3.model('address').where({ id: addressId }).find();
+      const checkedAddress = yield _this3.model('address').where({ id: 3 }).find();
       if (think.isEmpty(checkedAddress)) {
         return _this3.fail('请选择收货地址');
       }
       const freightPrice = 0.00;
 
       // 获取要购买的商品
-      const checkedGoodsList = yield _this3.model('cart').where({ user_id: think.userId, session_id: 1, checked: 1 }).select();
+      const checkedGoodsList = yield _this3.model('cart').where({ user_id: 0, session_id: 1, checked: 1 }).select();
       if (think.isEmpty(checkedGoodsList)) {
-        return _this3.fail('请选择商品');
+        // return _this3.fail('请选择商品');
       }
 
       // 统计商品总价
@@ -121,7 +121,7 @@ module.exports = class extends Base {
 
       const orderInfo = {
         order_sn: _this3.model('order').generateOrderNumber(),
-        user_id: think.userId,
+        user_id: 0,
 
         // 收货地址和运费
         consignee: checkedAddress.name,
